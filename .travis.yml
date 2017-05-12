@@ -5,3 +5,11 @@ python:
   - '3.6'
 install: pip install .
 script: python setup.py test
+deploy:
+  on:
+    branch: master
+  provider: pypi
+  distributions: sdist bdist_wheel
+  user: efl_phx
+  password:
+    secure: aZx2Op+s+bGY+EsRbJO6PuluVu0g4/KE2Y9BkD9XajRDASoyUt0pWzUNU7FhvLkfPu0LmnzHgGPRMgeVzLMhxiSF/trAyWTnxSe+wQoVrhyV86uiiwBuyJfQrwbfRi61eKzi0m+j0douuBOSRbT8YSg38L9qYMzBFn6TsKZjQlAxOCSxlhfS/Q5I5+n+5aj4ZHCTXfNSZh5MnVFVT9ZJny9y23P4rYkgZb1eeXwUJJBHdfPQHkwNRmotP4cKiqZt1+SrFWqmwfnasIuv+EgZZ4vs7bPdfhH2x0lT4fBIAdV9SpyaqXOdH3VLWQ5U2IeBHNYYPHuQDjZS1VX0sZfON1GMCPkEC14RUpv8FaJzvIpW4KG95dBjGf9HPiFQm4YpWrkExc0u97yCrzwrGur+Z6plJozDk8d1GM9h8EDhSvKPhbWnJvH7kc8bUqqDFH1ZtIqB6pA4i36fNqOx+yM4B2zVvU1hi6LBSayatW3JXYfYT8QbtM319WU2yvtM85GptmeFRcfbOGa5SYJqFrj30MjemCwD7m4LjH8kPP/15vK7Eo96aJe5dXH3p7uwYQ0JVpoQGupvghJCAiW7c6dLY+SYH9l7ybQKbAHomXUi9F9hD1sQxuQRA/N0O819CQpA7IslAKsBBpgoe4Nd3bqhzb0D+pxAsMldFQYsOEThMnw=

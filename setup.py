@@ -17,16 +17,6 @@ with open(join(cwd, 'README.rst'), 'r', 'utf-8') as f: # type: StreamReader
 
 
 ##
-# Certain dependencies are optional depending on Python version.
-dependencies = [
-    'filters',
-    'iso3166',
-    'language_tags',
-    'py-moneyed',
-]
-
-
-##
 # Off we go!
 setup(
     name        = 'filters-iso',
@@ -46,7 +36,12 @@ setup(
 
     long_description = long_description,
 
-    install_requires = dependencies,
+    install_requires = [
+        'filters >= 1.2.0',
+        'iso3166',
+        'language_tags',
+        'py-moneyed',
+    ],
 
     test_suite    = 'test',
     test_loader   = 'nose.loader:TestLoader',
