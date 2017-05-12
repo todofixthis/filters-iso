@@ -37,7 +37,7 @@ setup(
     long_description = long_description,
 
     install_requires = [
-        'filters',
+        'filters >= 1.2.0',
         'iso3166',
         'language_tags',
         'py-moneyed',
