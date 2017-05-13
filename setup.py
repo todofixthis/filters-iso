@@ -23,7 +23,7 @@ setup(
     description = 'Adds filters for interpreting ISO codes.',
     url         = 'https://filters.readthedocs.io/',
 
-    version = '1.0.0',
+    version = '1.0.1',
 
     packages = ['filters_iso'],
 
