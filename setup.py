@@ -23,7 +23,7 @@ setup(
     description = 'Adds filters for interpreting ISO codes.',
     url         = 'https://filters.readthedocs.io/',
 
-    version = '1.0.0',
+    version = '1.0.1',
 
     packages = ['filters_iso'],
 
@@ -68,7 +68,8 @@ setup(
         'Topic :: Text Processing :: Filters',
     ],
 
-    keywords = 'data validation',
+    keywords =
+        'data validation, iso-3166, iso-4217, ietf language tags, bcp 47',
 
     author          = 'Phoenix Zerin',
     author_email    = 'phoenix.zerin@eflglobal.com',
