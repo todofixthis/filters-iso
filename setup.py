@@ -68,7 +68,8 @@ setup(
         'Topic :: Text Processing :: Filters',
     ],
 
-    keywords = 'data validation',
+    keywords =
+        'data validation, iso-3166, iso-4217, ietf language tags, bcp 47',
 
     author          = 'Phoenix Zerin',
     author_email    = 'phoenix.zerin@eflglobal.com',
