@@ -30,7 +30,9 @@ setup(
     # Install package filters into the global registry.
     entry_points = {
         'filters.extensions': [
-            'iso = filters_iso',
+            'Country = filters_iso:Country',
+            'Currency = filters_iso:Currency',
+            'Locale = filters_iso:Locale',
         ],
     },
 
