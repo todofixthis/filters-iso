@@ -23,14 +23,16 @@ setup(
     description = 'Adds filters for interpreting ISO codes.',
     url         = 'https://filters.readthedocs.io/',
 
-    version = '1.0.1',
+    version = '1.0.2',
 
     packages = ['filters_iso'],
 
     # Install package filters into the global registry.
     entry_points = {
         'filters.extensions': [
-            'iso = filters_iso',
+            'Country = filters_iso:Country',
+            'Currency = filters_iso:Currency',
+            'Locale = filters_iso:Locale',
         ],
     },
 
@@ -47,10 +49,6 @@ setup(
     test_loader   = 'nose.loader:TestLoader',
     tests_require = [
         'nose',
-    ],
-
-    data_files = [
-        ('', ['LICENSE']),
     ],
 
     license = 'MIT',
