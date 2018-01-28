@@ -45,6 +45,10 @@ setup(
         'py-moneyed',
     ],
 
+    extras_require = {
+        'test-runner': ['detox'],
+    },
+
     test_suite    = 'test',
     test_loader   = 'nose.loader:TestLoader',
     tests_require = [
