@@ -1,9 +1,4 @@
-# coding=utf-8
-from __future__ import absolute_import, division, print_function, \
-    unicode_literals
-
 from filters.base import BaseFilter, Type
-from six import string_types
 
 __all__ = [
     'Country',
@@ -28,13 +23,14 @@ class Country(BaseFilter):
     def _apply(self, value):
         # Lazy-load dependencies to reduce memory usage when this
         # filter is not used in a project.
+        # noinspection PyProtectedMember
         from iso3166 import (
             countries_by_alpha2,
             countries_by_alpha3,
             Country as CountryType,
         )
 
-        value = self._filter(value, Type(string_types + (CountryType,)))
+        value = self._filter(value, Type((str, CountryType,)))
 
         if self._has_errors:
             return None
@@ -74,7 +70,7 @@ class Currency(BaseFilter):
             get_currency,
         )
 
-        value = self._filter(value, Type(string_types + (CurrencyType,)))
+        value = self._filter(value, Type((str, CurrencyType,)))
 
         if self._has_errors:
             return None
@@ -116,7 +112,7 @@ class Locale(BaseFilter):
         from language_tags import tags
         from language_tags.Tag import Tag
 
-        value = self._filter(value, Type(string_types + (Tag,)))
+        value = self._filter(value, Type((str, Tag,)))
 
         if self._has_errors:
             return None
@@ -128,13 +124,13 @@ class Locale(BaseFilter):
 
         if not tag.valid:
             return self._invalid_value(
-                value   = value,
-                reason  = self.CODE_INVALID,
+                value=value,
+                reason=self.CODE_INVALID,
 
-                context = {
+                context={
                     'parse_errors': [
                         (error.code, error.message)
-                            for error in tag.errors
+                        for error in tag.errors
                     ],
                 },
             )
