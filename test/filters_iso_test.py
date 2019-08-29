@@ -1,15 +1,10 @@
- # coding=utf-8
-from __future__ import absolute_import, division, print_function, \
-    unicode_literals
-
+import filters as f
+from filters.test import BaseFilterTestCase
+# noinspection PyProtectedMember
 from iso3166 import Country, countries_by_alpha3
 from language_tags import tags
 from language_tags.Tag import Tag
 from moneyed import Currency, get_currency
-from six import text_type
-
-import filters as f
-from filters.test import BaseFilterTestCase
 
 
 class CountryTestCase(BaseFilterTestCase):
@@ -196,10 +191,10 @@ class LocaleTestCase(BaseFilterTestCase):
         # documentation of its own).
         # https://github.com/mattcg/language-tags
         #
-        self.assertEqual(text_type(tag), 'en-cmn-Hant-HK')
-        self.assertEqual(text_type(tag.language), 'en')
-        self.assertEqual(text_type(tag.region), 'HK')
-        self.assertEqual(text_type(tag.script), 'Hant')
+        self.assertEqual(str(tag), 'en-cmn-Hant-HK')
+        self.assertEqual(str(tag.language), 'en')
+        self.assertEqual(str(tag.region), 'HK')
+        self.assertEqual(str(tag.script), 'Hant')
 
     def test_pass_case_insensitive(self):
         """
@@ -215,10 +210,10 @@ class LocaleTestCase(BaseFilterTestCase):
         self.assertIsInstance(tag, Tag)
         self.assertTrue(tag.valid)
 
-        self.assertEqual(text_type(tag), 'az-Arab-IR')
-        self.assertEqual(text_type(tag.language), 'az')
-        self.assertEqual(text_type(tag.region), 'IR')
-        self.assertEqual(text_type(tag.script), 'Arab')
+        self.assertEqual(str(tag), 'az-Arab-IR')
+        self.assertEqual(str(tag.language), 'az')
+        self.assertEqual(str(tag.region), 'IR')
+        self.assertEqual(str(tag.script), 'Arab')
 
     def test_fail_invalid_value(self):
         """
