@@ -105,7 +105,7 @@ class CurrencyTestCase(BaseFilterTestCase):
 
         currency = filtered.cleaned_data
         self.assertIsInstance(currency, Currency)
-        self.assertEqual(currency.name, 'Nuevo Sol')
+        self.assertEqual(currency.name, 'Peruvian Sol')
 
     def test_pass_case_insensitive(self):
         """
