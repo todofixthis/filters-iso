@@ -1,11 +1,11 @@
 .. image:: https://github.com/todofixthis/filters-iso/actions/workflows/build.yml/badge.svg
    :target: https://github.com/todofixthis/filters-iso/actions/workflows/build.yml
 .. image:: https://readthedocs.org/projects/filters/badge/?version=latest
-   :target: http://filters.readthedocs.io/
+   :target: https://filters.readthedocs.io/en/latest/extension_filters.html#iso-filters
 
 ISO Filters
 ===========
-Adds filters for interpreting standard codes and identifiers, including:
+Adds `filters`_ for interpreting standard codes and identifiers, including:
 
 - ISO 3166-1 alpha-2 and alpha-3 country codes.
 - ISO 4217 currency codes.
@@ -15,9 +15,9 @@ Requirements
 ------------
 ISO Filters is known to be compatible with the following Python versions:
 
+- 3.12
 - 3.11
 - 3.10
-- 3.9
 
 .. note::
    I'm only one person, so to keep from getting overwhelmed, I'm only committing
@@ -123,6 +123,7 @@ Steps to build releases are based on `Packaging Python Projects Tutorial`_
 #. Click ``Publish release``.
 
 .. _Create a PyPI API token: https://pypi.org/manage/account/token/
+.. _filters: https://filters.readthedocs.io/
 .. _Filters library: https://pypi.python.org/pypi/filters
 .. _Packaging Python Projects Tutorial: https://packaging.python.org/en/latest/tutorials/packaging-projects/
 .. _phx-filters repo: https://github.com/todofixthis/filters/blob/develop/docs/extension_filters.rst
