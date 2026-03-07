@@ -63,49 +63,45 @@ Source files for this project's documentation can be found in the
 
 Releases
 --------
-Steps to build releases are based on `Packaging Python Projects Tutorial`_
-
 .. important::
 
    Make sure to build releases off of the ``main`` branch, and check that all
    changes from ``develop`` have been merged before creating the release!
 
-1. Build the Project
-~~~~~~~~~~~~~~~~~~~~
-#. Install extra dependencies (you only have to do this once)::
-
-    pip install -e '.[build-system]'
-
-#. Delete artefacts from previous builds, if applicable::
-
-    rm dist/*
-
-#. Run the build::
-
-    python -m build
-
-#. The build artefacts will be located in the ``dist`` directory at the top
-   level of the project.
-
-2. Upload to PyPI
+1. One-time setup
 ~~~~~~~~~~~~~~~~~
-#. `Create a PyPI API token`_ (you only have to do this once).
-#. Increment the version number in ``pyproject.toml``.
-#. Check that the build artefacts are valid, and fix any errors that it finds::
+Create a `PyPI API token`_ if you don't have one, then install ``keyring`` as
+a global tool and store the token:
 
-    python -m twine check dist/*
+.. code-block:: bash
 
-#. Upload build artefacts to PyPI::
+    uv tool install keyring
+    uv tool update-shell
+    keyring set https://upload.pypi.org/legacy/ __token__
 
-    python -m twine upload dist/*
+Paste your ``pypi-...`` token when prompted.
 
+2. Publish to PyPI
+~~~~~~~~~~~~~~~~~~
+#. Bump the version (updates ``pyproject.toml`` and ``uv.lock``)::
+
+    uv version <version>
+
+#. Commit the changes::
+
+    git add pyproject.toml uv.lock
+    git commit
+
+#. Publish to PyPI::
+
+    uv publish --username __token__
 
 3. Create GitHub Release
 ~~~~~~~~~~~~~~~~~~~~~~~~
-#. Create a tag and push to GitHub::
+#. Create an annotated tag and push to GitHub::
 
-    git tag <version>
-    git push
+    git tag -a <version> -m "Release <version>"
+    git push origin <version>
 
    ``<version>`` must match the updated version number in ``pyproject.toml``.
 
@@ -122,10 +118,9 @@ Steps to build releases are based on `Packaging Python Projects Tutorial`_
 #. Attach the build artefacts to the release.
 #. Click ``Publish release``.
 
-.. _Create a PyPI API token: https://pypi.org/manage/account/token/
+.. _PyPI API token: https://pypi.org/manage/account/#api-tokens
 .. _filters: https://filters.readthedocs.io/
 .. _Filters library: https://pypi.python.org/pypi/filters
-.. _Packaging Python Projects Tutorial: https://packaging.python.org/en/latest/tutorials/packaging-projects/
 .. _phx-filters repo: https://github.com/todofixthis/filters/blob/develop/docs/extension_filters.rst
 .. _ReadTheDocs: https://filters.readthedocs.io/en/latest/extension_filters.html#iso-filters
 .. _Releases page for the repo: https://github.com/todofixthis/filters-iso/releases
