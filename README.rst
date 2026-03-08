@@ -15,9 +15,9 @@ Requirements
 ------------
 ISO Filters is known to be compatible with the following Python versions:
 
+- 3.14
+- 3.13
 - 3.12
-- 3.11
-- 3.10
 
 .. note::
    I'm only one person, so to keep from getting overwhelmed, I'm only committing
@@ -42,17 +42,28 @@ the package version separately from ``phx-filters``::
 
    pip install phx-filters-iso
 
-Running Unit Tests
-------------------
-Install the package with the ``test-runner`` extra to set up the necessary
-dependencies, and then you can run the tests with the ``tox`` command::
+Maintainers
+-----------
+To set up a local development environment:
 
-   pip install -e .[test-runner]
-   tox -p
+#. `Install uv <https://docs.astral.sh/uv/getting-started/installation/>`_ (once per machine).
+
+#. Install dependencies::
+
+      uv sync
+
+#. Activate pre-commit hooks::
+
+      uv run autohooks activate --mode=pythonpath
+
+Run tests for all supported Python versions using
+`tox <https://tox.readthedocs.io/>`_::
+
+   uv run tox -p
 
 To run tests in the current virtualenv::
 
-   python -m unittest
+   uv run python -m unittest
 
 Documentation
 -------------
