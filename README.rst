@@ -50,7 +50,7 @@ To set up a local development environment:
 
 #. Install dependencies::
 
-      uv sync --group=dev
+      uv sync
 
 #. Activate pre-commit hooks::
 
