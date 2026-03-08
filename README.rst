@@ -15,9 +15,9 @@ Requirements
 ------------
 ISO Filters is known to be compatible with the following Python versions:
 
+- 3.14
+- 3.13
 - 3.12
-- 3.11
-- 3.10
 
 .. note::
    I'm only one person, so to keep from getting overwhelmed, I'm only committing
