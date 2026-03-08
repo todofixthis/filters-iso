@@ -5,9 +5,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ```bash
-python -m unittest                          # run all tests
-python -m unittest test.test_filters_iso.CountryTestCase  # run one test class
-uv run tox -p                               # test across all supported Python versions
+uv run python -m unittest                                         # run all tests
+uv run python -m unittest test.test_filters_iso.CountryTestCase   # run one test class
+uv run tox -p                                                     # test across all supported Python versions
 ```
 
 ## Architecture
