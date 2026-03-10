@@ -22,6 +22,11 @@ pip-log.txt
 # pyenv
 .python-version
 
+# Release artefacts (local working files)
+release-*-body.md
+release-*.md
+release-*.md.asc
+
 # Unit test / coverage reports
 *,cover
 .cache
