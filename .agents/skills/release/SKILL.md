@@ -25,7 +25,7 @@ gh issue view <number> --json title,body,labels
 ```
 
 ### 3. Draft release notes
-Using the commit list, PR descriptions, and issue context, draft the release notes following the _Writing Release Notes_ guide below. Present the draft to the developer for review and incorporate feedback before proceeding.
+Using the commit list, PR descriptions, and issue context, draft the release notes following the _Writing Release Notes_ guide below. Then invoke the `nz-english` skill to check spelling before presenting the draft to the developer for review. Incorporate feedback before proceeding.
 
 ### 4. Recommend version number
 Based on the changes, recommend a semver bump:
