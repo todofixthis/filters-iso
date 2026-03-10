@@ -79,12 +79,13 @@ sha256sum dist/phx_filters-* >> release-<version>.md
 
 **b. GPG-sign the document:**
 ```bash
-gpg --clearsign release-<version>.md   # → release-<version>.md.asc
+GPG_KEY=$(gpg --list-keys --with-colons $(git config user.email) | awk -F: '/^fpr/{print $10; exit}')
+gpg --clearsign --local-user "$GPG_KEY" release-<version>.md   # → release-<version>.md.asc
 ```
 
 **c. Sign each build artefact:**
 ```bash
-for f in dist/phx_filters-*; do gpg --detach-sign "$f"; done
+for f in dist/phx_filters-*; do gpg --detach-sign --local-user "$GPG_KEY" "$f"; done
 # Creates dist/phx_filters-*.sig alongside each artefact
 ```
 
@@ -103,7 +104,7 @@ Write this to `release-<version>-body.md`.
 **e. Create the release and upload all artefacts:**
 ```bash
 gh release create <version> dist/* \
-  --title "Filters v<version>" \
+  --title "ISO Filters v<version>" \
   --notes-file release-<version>-body.md
 ```
 `dist/*` picks up the `.whl`, `.tar.gz`, and `.sig` files.
@@ -125,7 +126,7 @@ git checkout develop && git pull
 
 ### Structure
 ```markdown
-# Filters v<version>
+# ISO Filters v<version>
 <one-sentence summary of the release character>
 
 > [!WARNING]
