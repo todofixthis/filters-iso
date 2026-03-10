@@ -90,6 +90,9 @@ include = [
 [tool.hatch.build.targets.wheel]
 include = ["filters_iso"]
 
+[tool.pytest.ini_options]
+testpaths = ["test"]
+
 [tool.tox]
 env_list = ["py314", "py313", "py312"]
 

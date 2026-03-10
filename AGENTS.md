@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```bash
 uv run pytest                          # run all tests
-uv run pytest test/test_country.py -v  # run one test module
+uv run pytest test/test_country.py     # run one test module
 uv run tox -p                          # test across all supported Python versions
 ```
 

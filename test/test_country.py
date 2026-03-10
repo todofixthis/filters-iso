@@ -14,7 +14,7 @@ def test_pass_none(assert_filter_passes):
 
 def test_pass_valid_alpha_3(assert_filter_passes):
     """
-    The incoming value is a valid ISO-3316-1 alpha-3 country code.
+    The incoming value is a valid ISO-3166-1 alpha-3 country code.
     """
     runner = assert_filter_passes(f.ext.Country(), 'FRA', skip_value_check)
 
@@ -47,7 +47,7 @@ def test_pass_case_insensitive(assert_filter_passes):
 
 def test_fail_invalid_code(assert_filter_errors):
     """
-    The incoming value is not a valid ISO-3316-1 country code.
+    The incoming value is not a valid ISO-3166-1 country code.
     """
     # Surrender is not an option!
     assert_filter_errors(f.ext.Country(), '\u2690', [f.ext.Country.CODE_INVALID])
