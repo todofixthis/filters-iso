@@ -82,13 +82,13 @@ pre-commit = [
 
 [tool.hatch.build.targets.sdist]
 include = [
-    "filters_iso",
+    "src/filters_iso",
     "LICENCE.txt",
     "test",
 ]
 
 [tool.hatch.build.targets.wheel]
-include = ["filters_iso"]
+packages = ["src/filters_iso"]
 
 [tool.pytest.ini_options]
 testpaths = ["test"]
