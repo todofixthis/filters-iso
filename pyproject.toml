@@ -44,7 +44,7 @@ classifiers = [
 ]
 
 dependencies = [
-    'phx-filters >= 3.4.0',
+    'phx-filters >= 3.5.1',
     'iso3166',
     'language_tags',
     'py-moneyed',
