@@ -3,11 +3,12 @@ This file provides guidance to coding agents working with code in this repositor
 ## Commands
 
 ```bash
+uv run autohooks activate --mode=pythonpath  # install pre-commit hook (once per clone)
+uv add <package>                       # add a runtime dependency
+uv add --group dev <package>           # add a dev dependency
 uv run pytest                          # run all tests
 uv run pytest test/test_country.py     # run one test module
 uv run tox -p                          # test across all supported Python versions
-uv add <package>                       # add a runtime dependency
-uv add --group dev <package>           # add a dev dependency
 ```
 
 ## Architecture
