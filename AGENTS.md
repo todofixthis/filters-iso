@@ -4,6 +4,7 @@ This file provides guidance to coding agents working with code in this repositor
 
 ```bash
 uv run autohooks activate --mode=pythonpath  # install pre-commit hook (once per clone)
+uv run git commit                      # always use instead of git commit (runs autohooks)
 uv add <package>                       # add a runtime dependency
 uv add --group dev <package>           # add a dev dependency
 uv run pytest                          # run all tests
