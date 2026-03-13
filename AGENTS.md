@@ -6,6 +6,8 @@ This file provides guidance to coding agents working with code in this repositor
 uv run pytest                          # run all tests
 uv run pytest test/test_country.py     # run one test module
 uv run tox -p                          # test across all supported Python versions
+uv add <package>                       # add a runtime dependency
+uv add --group dev <package>           # add a dev dependency
 ```
 
 ## Architecture

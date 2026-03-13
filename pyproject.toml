@@ -69,6 +69,7 @@ dev = [
     "autohooks-plugin-ruff>=25,<26",
     "black>=26,<27",
     "pytest>=9,<10",
+    "pyyaml>=6.0.3",
     "tox>=4,<5",
     "tox-uv>=1.23.0,<2",
 ]
@@ -76,6 +77,7 @@ dev = [
 [tool.autohooks]
 mode = "pythonpath"
 pre-commit = [
+    "adr_index",
     "autohooks.plugins.black",
     "autohooks.plugins.ruff",
 ]
