@@ -1,7 +1,11 @@
-# 001: Migrate Tests to Pytest
+---
+status: Accepted
+date: 2026-03-10
+tags: [testing, pytest, unittest, migration]
+summary: Migrate tests from unittest.TestCase to flat pytest functions, one module per filter.
+---
 
-**Status:** Accepted
-**Date:** 2026-03-10
+# 001: Migrate Tests to Pytest
 
 ## Context
 
