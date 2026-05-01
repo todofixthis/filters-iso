@@ -106,3 +106,4 @@ runner = "uv-venv-lock-runner"
 
 [tool.uv]
 keyring-provider = "subprocess"
+native-tls = true
