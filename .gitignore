@@ -3,38 +3,16 @@
 __pycache__/
 
 # Distribution / packaging
-*.egg
 *.egg-info/
-.eggs/
-build/
 dist/
-
-# dotenv
-.env
 
 # Git worktrees
 .worktrees/
-
-# Installer logs
-pip-delete-this-directory.txt
-pip-log.txt
-
-# pyenv
-.python-version
 
 # Release artefacts (local working files)
 release-*-body.md
 release-*.md
 release-*.md.asc
 
-# Unit test / coverage reports
-*,cover
-.cache
-.coverage
-.coverage.*
+# Tox
 .tox/
-coverage.xml
-htmlcov/
-
-# Virtual environments
-.venv/
