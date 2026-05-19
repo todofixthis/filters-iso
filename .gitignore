@@ -14,5 +14,5 @@ release-*-body.md
 release-*.md
 release-*.md.asc
 
-# Tox
+# Testing
 .tox/
