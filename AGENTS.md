@@ -58,6 +58,10 @@ Place comments on the line preceding the code they document, not as trailing com
 - `develop` — main development branch
 - Feature branches off `develop` for all new work
 
+## Agent Config Layout
+
+`.claude/` and `.agents/` are standalone directories, not a whole-directory symlink. They share only `skills`: `.claude/skills` is a symlink into `.agents/skills` (the canonical copy). Keep `.claude/` a real directory — if it becomes a symlink again, the native worktree tool refuses to run and `git add .claude/...` fails with "beyond a symbolic link".
+
 ## Git Worktrees
 
 Use `.worktrees/` for isolated workspaces (project-local, gitignored).
