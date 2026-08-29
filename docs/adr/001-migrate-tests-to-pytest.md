@@ -1,7 +1,7 @@
 ---
 status: Accepted
 date: 2026-03-10
-tags: [testing, pytest, unittest, migration]
+scope: [test/]
 summary: Migrate tests from unittest.TestCase to flat pytest functions, one module per filter.
 ---
 
