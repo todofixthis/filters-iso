@@ -2,6 +2,6 @@
 
 # ADR Index
 
-| # | Status | Title | Tags | Summary |
-|---|--------|-------|------|---------|
-| [001](001-migrate-tests-to-pytest.md) | Accepted | Migrate Tests to Pytest | testing, pytest, unittest, migration | Migrate tests from unittest.TestCase to flat pytest functions, one module per filter. |
+| # | Status | Title | Scope | Summary | Revisit |
+|---|--------|-------|-------|---------|---------|
+| [001](001-migrate-tests-to-pytest.md) | Accepted | Migrate Tests to Pytest | test/ | Migrate tests from unittest.TestCase to flat pytest functions, one module per filter. |  |

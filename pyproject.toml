@@ -95,6 +95,7 @@ include = [
 packages = ["src/filters_iso"]
 
 [tool.pytest.ini_options]
+pythonpath = ["."]
 testpaths = ["test"]
 
 [tool.tox]
@@ -107,4 +108,4 @@ runner = "uv-venv-lock-runner"
 [tool.uv]
 keyring-provider = "subprocess"
 # Fix SSL errors when running in Leash containers
-system-certs = true
+native-tls = true
