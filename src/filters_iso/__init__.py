@@ -1,9 +1,9 @@
 from filters.base import BaseFilter, Type
 
 __all__ = [
-    'Country',
-    'Currency',
-    'Locale',
+    "Country",
+    "Currency",
+    "Locale",
 ]
 
 
@@ -14,10 +14,11 @@ class Country(BaseFilter):
 
     The resulting value is a :py:class:`iso3166.Country` object.
     """
-    CODE_INVALID = 'not_iso_3166_1'
+
+    CODE_INVALID = "not_iso_3166_1"
 
     templates = {
-        CODE_INVALID: 'This is not a valid ISO 3166-1 country code.',
+        CODE_INVALID: "This is not a valid ISO 3166-1 country code.",
     }
 
     def _apply(self, value):
@@ -30,7 +31,7 @@ class Country(BaseFilter):
             Country as CountryType,
         )
 
-        value = self._filter(value, Type((str, CountryType,)))
+        value = self._filter(value, Type((str, CountryType)))
 
         if self._has_errors:
             return None
@@ -55,10 +56,11 @@ class Currency(BaseFilter):
 
     The resulting value is a :py:class:`moneyed.Currency` object.
     """
-    CODE_INVALID = 'not_iso_4217'
+
+    CODE_INVALID = "not_iso_4217"
 
     templates = {
-        CODE_INVALID: 'This is not a valid ISO 4217 currency code.',
+        CODE_INVALID: "This is not a valid ISO 4217 currency code.",
     }
 
     def _apply(self, value):
@@ -70,7 +72,7 @@ class Currency(BaseFilter):
             get_currency,
         )
 
-        value = self._filter(value, Type((str, CurrencyType,)))
+        value = self._filter(value, Type((str, CurrencyType)))
 
         if self._has_errors:
             return None
@@ -100,10 +102,11 @@ class Locale(BaseFilter):
 
     The resulting value is a :py:class:`language_tags.Tag.Tag` object.
     """
-    CODE_INVALID = 'not_ietf_language_tag'
+
+    CODE_INVALID = "not_ietf_language_tag"
 
     templates = {
-        CODE_INVALID: 'This value is not a well-formed IETF language tag.',
+        CODE_INVALID: "This value is not a well-formed IETF language tag.",
     }
 
     def _apply(self, value):
@@ -112,7 +115,7 @@ class Locale(BaseFilter):
         from language_tags import tags
         from language_tags.Tag import Tag
 
-        value = self._filter(value, Type((str, Tag,)))
+        value = self._filter(value, Type((str, Tag)))
 
         if self._has_errors:
             return None
@@ -126,11 +129,9 @@ class Locale(BaseFilter):
             return self._invalid_value(
                 value=value,
                 reason=self.CODE_INVALID,
-
                 context={
-                    'parse_errors': [
-                        (error.code, error.message)
-                        for error in tag.errors
+                    "parse_errors": [
+                        (error.code, error.message) for error in tag.errors
                     ],
                 },
             )
