@@ -3,7 +3,7 @@ status: Accepted
 date: 2026-10-07
 scope: [.claude/settings.json, .github/workflows/build.yml, AGENTS.md, docs/adr/, pyproject.toml]
 summary: Index, validate and look up ADRs with the phx writing-adrs tool, through the plugin's hooks in sessions and its phx-adr entry point at a pinned release in CI, not a repo-local generator, pre-commit hook or vendored copy, with frontmatter following phx writing-adrs conventions (scope, not tags).
-revisit-when: A phx plugin release imposes an ADR convention the maintainer rejects; ADRs here are authored in a harness other than Claude Code; the phx plugin drops its ADR tooling.
+revisit-when: A phx plugin release imposes an ADR convention the maintainer rejects; ADRs here are routinely authored outside Claude Code, by hand or in another harness; the phx plugin drops its ADR tooling.
 ---
 
 # 003: Rely on the phx Plugin for ADR Tooling
@@ -20,9 +20,10 @@ and failed on a diff.
 [`phx:writing-adrs`][] now ships its own stdlib tool, [`adr.py`][], beside the skill. It
 indexes, validates, scaffolds, supersedes, discharges and renumbers ADRs, and answers
 which decisions bind a path. The phx plugin's hooks call it in Claude Code sessions:
-they inject the decisions binding a file the first time a session touches it,
-regenerate the index after a file-tool edit to an ADR, and report faults. They report
-only; none blocks. The tool also installs as a `phx-adr` command, so CI can run it.
+they inject the decisions binding a file the first time a session touches it, regenerate
+the index after a file-tool edit to an ADR, and report faults: those standing at session
+start, reported once, then each new one. They report only; none blocks. The tool also
+installs as a `phx-adr` command, so CI can run it.
 
 The two cannot run side by side. Each writes `docs/adr/INDEX.md` in its own format, so
 `adr.py check` reports the repo generator's index as stale. And the plugin's hooks stay
@@ -40,8 +41,8 @@ share the migration; it does not rank them.
 
 ### Option 1: Do nothing
 
-**Pros:** The pre-commit hook blocks a faulty commit for every committer who installed
-it.
+**Pros:** The pre-commit hook blocks a faulty commit that stages an ADR, for every
+committer who installed it.
 **Cons:** The phx plugin's hooks stay off, and `adr.py` can't be used here without
 fighting the repo generator over the index. The repo generator is a port that has to
 be kept in step with the skill by hand.
@@ -56,14 +57,17 @@ only once pushed. Outside Claude Code nothing allocates a number or regenerates 
 index, so the author runs `phx-adr` by hand. The pinned ref has to be bumped by hand.
 **Risks:** Sessions load whatever plugin release is installed, not the pinned one. A
 release that changes the index format leaves CI reporting the index stale right after
-a session regenerates it, until the pin catches up.
+a session regenerates it, until the pin catches up. A release that adds a rule is
+quieter: sessions mention the existing violations once at startup while the old pin
+passes them, so nothing fails until the pin is bumped.
 
 ### Option 3: The plugin's hooks alone
 
 **Pros:** Nothing to pin.
 **Cons:** Nothing outside a Claude Code session with the plugin checks the corpus, and
-the hooks only report, so a fault from any other commit lands on `main` unnoticed. A
-commit that rewrites the index's header line turns the hooks off without a report.
+the hooks only report, so a fault from any other commit lands on `develop` before
+anything reports it. A commit that rewrites the index's header line turns the hooks off
+without a report.
 
 ### Option 4: Vendor `adr.py` into the repository
 
@@ -90,7 +94,8 @@ here: `scope` names the paths a decision binds, never `tags`.
   commit. Bump both when sessions move to a new plugin release, and fix whatever the
   new release reports in the same change.
 - The plugin is Claude Code's, so an agent in another harness gets no session hooks,
-  and meets the conventions only through `AGENTS.md`, the skill and CI.
+  and meets the conventions only through CI and `AGENTS.md`, which links the skill's
+  text.
 
 [`.claude/settings.json`]: ../../.claude/settings.json
 [ADR 002]: 002-scope-adr-frontmatter-by-bound-paths.md
