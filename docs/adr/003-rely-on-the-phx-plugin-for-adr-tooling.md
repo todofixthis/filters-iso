@@ -1,9 +1,9 @@
 ---
 status: Accepted
 date: 2026-10-07
-scope: [.claude/settings.json, .github/workflows/build.yml, AGENTS.md, docs/adr/, pyproject.toml]
+scope: [.claude/settings.json, .github/workflows/build.yml, AGENTS.md, docs/adr/, pyproject.toml, renovate.json]
 summary: Index, validate and look up ADRs with the phx writing-adrs tool, through the plugin's hooks in sessions and its phx-adr entry point at a pinned release in CI, not a repo-local generator, pre-commit hook or vendored copy, with frontmatter following phx writing-adrs conventions (scope, not tags).
-revisit-when: A phx plugin release imposes an ADR convention the maintainer rejects; ADRs here are routinely authored outside Claude Code, by hand or in another harness; the phx plugin drops its ADR tooling.
+revisit-when: A phx plugin release imposes an ADR convention the maintainer rejects; ADRs here are routinely authored outside Claude Code, by hand or in another harness; the phx plugin drops its ADR tooling; phx's marketplace stops serving `main`; phx's `main` stops carrying only releases.
 ---
 
 # 003: Rely on the phx Plugin for ADR Tooling
@@ -54,7 +54,8 @@ from the plugin at a pinned release's commit.
 
 **Cons:** No local check blocks a commit; a fault from outside Claude Code is caught
 only once pushed. Outside Claude Code nothing allocates a number or regenerates the
-index, so the author runs `phx-adr` by hand. The pinned ref has to be bumped by hand.
+index, so the author runs `phx-adr` by hand. The pin moves only when someone merges a
+bump.
 **Risks:** Sessions load whatever plugin release is installed, not the pinned one. A
 release that changes the index format leaves CI reporting the index stale right after
 a session regenerates it, until the pin catches up. A release that adds a rule is
@@ -90,9 +91,12 @@ here: `scope` names the paths a decision binds, never `tags`.
   plugin's hooks on here.
 - `scripts/`, the generator's tests, the `adr_index` hook, PyYAML and pytest's
   `pythonpath = ["."]` (the generator and its tests were their only users) are removed.
-- The CI `adrs` job and `AGENTS.md`'s `phx-adr` commands pin the 8.1.0 release's
-  commit. Bump both when sessions move to a new plugin release, and fix whatever the
-  new release reports in the same change.
+- The CI `adrs` job and `AGENTS.md`'s commands and skill link pin a commit on phx's
+  releases-only `main`: 8.1.0's, when this was written. It tracks `main` rather than
+  release tags because phx's marketplace serves `main`, so the pin matches what
+  sessions install. A Renovate custom manager proposes each new tip as one pull
+  request, whose `adrs` run shows what the new release reports; fix that in the same
+  pull request.
 - The plugin is Claude Code's, so an agent in another harness gets no session hooks,
   and meets the conventions only through CI and `AGENTS.md`, which links the skill's
   text.

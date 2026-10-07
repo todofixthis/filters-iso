@@ -8,8 +8,8 @@ permissions:
 jobs:
   # The phx plugin's hooks check ADRs in Claude Code sessions but never block, so
   # this is the only check a commit made elsewhere meets (ADR 003 forbids a
-  # repo-local copy of the tool). The ref is the 8.1.0 release's commit; bump it,
-  # and the ones in AGENTS.md, with the plugin release sessions use.
+  # repo-local copy of the tool). The ref is a commit on phx's releases-only main;
+  # Renovate bumps it with the ones in AGENTS.md (renovate.json).
   adrs:
     runs-on: ubuntu-latest
 

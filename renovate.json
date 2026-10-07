@@ -1,5 +1,17 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "customManagers": [
+    {
+      "customType": "regex",
+      "currentValueTemplate": "main",
+      "datasourceTemplate": "git-refs",
+      "depNameTemplate": "phx-claude-siat",
+      "description": "Bump the phx ADR tool's pinned commit (ADR 003) to the tip of phx's releases-only main branch",
+      "managerFilePatterns": ["/^\\.github/workflows/build\\.yml$/", "/^AGENTS\\.md$/"],
+      "matchStrings": ["github\\.com/todofixthis/phx-claude-siat(?:@|/blob/)(?<currentDigest>[0-9a-f]{40})"],
+      "packageNameTemplate": "https://github.com/todofixthis/phx-claude-siat"
+    }
+  ],
   "extends": [
     "config:recommended",
     "helpers:pinGitHubActionDigests"

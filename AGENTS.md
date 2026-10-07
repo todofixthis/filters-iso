@@ -8,7 +8,7 @@ Before writing code, check:
 
 ## Architecture Decision Records
 
-When making significant decisions — choosing between libraries, patterns, tools, or conventions — you **must** write an ADR before implementing the decision. Use the `phx:writing-adrs` skill (from the phx plugin, which `.claude/settings.json` enables) for the format, conventions and tooling: its `adr.py` allocates the number, generates `docs/adr/INDEX.md` and validates the corpus. Outside Claude Code, read the skill at [`SKILL.md`](https://github.com/todofixthis/phx-claude-siat/blob/8.1.0/skills/writing-adrs/SKILL.md) and run its `python3 …/adr.py` commands as `phx-adr` (see Commands). Don't hand-edit the index or add a repo-local ADR script (ADR 003). ADRs live in `docs/adr/`.
+When making significant decisions — choosing between libraries, patterns, tools, or conventions — you **must** write an ADR before implementing the decision. Use the `phx:writing-adrs` skill (from the phx plugin, which `.claude/settings.json` enables) for the format, conventions and tooling: its `adr.py` allocates the number, generates `docs/adr/INDEX.md` and validates the corpus. Outside Claude Code, read the skill at [`SKILL.md`](https://github.com/todofixthis/phx-claude-siat/blob/0725567cec6bab6a227c2a3d569e64c226c33a4e/skills/writing-adrs/SKILL.md) and run its `python3 …/adr.py` commands as `phx-adr` (see Commands). Don't hand-edit the index or add a repo-local ADR script (ADR 003). ADRs live in `docs/adr/`.
 
 If you find yourself about to establish a new cross-cutting pattern (something that will affect multiple domains or files, e.g. a testing convention, a shared utility, an error-handling approach), stop and write an ADR first even if the immediate task feels local. A pattern adopted once becomes the template for everything that follows.
 
@@ -24,7 +24,7 @@ uv run pytest test/test_country.py          # run one test module
 uv run tox -p                               # test across all supported Python versions
 ```
 
-The phx plugin's ADR tool, for use outside Claude Code (keep the ref in step with the `adrs` CI job):
+The phx plugin's ADR tool, for use outside Claude Code (Renovate bumps these refs with the `adrs` CI job's; don't bump them by hand):
 
 ```bash
 # Scaffold the next ADR
