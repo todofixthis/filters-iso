@@ -44,7 +44,9 @@ classifiers = [
 ]
 
 dependencies = [
-    'phx-filters >= 3.5.1',
+    # 4.0 is the first release whose BaseFilter is typed (py.typed, generic
+    # over its output type).
+    'phx-filters >= 4.0.0a2',
     'iso3166',
     'language_tags',
     'py-moneyed',
@@ -92,8 +94,29 @@ include = [
 [tool.hatch.build.targets.wheel]
 packages = ["src/filters_iso"]
 
+[tool.mypy]
+strict = true
+
+# phx-filters rejects a value by returning `_invalid_value()`'s result (`Any`,
+# `None` by default) from a non-Optional `_apply`. Re-enable both codes once
+# todofixthis/filters#121 makes rejection raise instead.
+[[tool.mypy.overrides]]
+module = ["filters_iso"]
+disable_error_code = ["no-any-return", "return-value"]
+
+# language_tags ships no type information.
+[[tool.mypy.overrides]]
+module = ["language_tags", "language_tags.*"]
+ignore_missing_imports = true
+
 [tool.pytest.ini_options]
 testpaths = ["test"]
+
+[tool.ruff.lint]
+# phx-filters' BaseFilter declares `templates` as an instance attribute, so a
+# subclass annotating it `ClassVar`, as RUF012 asks, fails mypy's override
+# check.
+ignore = ["RUF012"]
 
 [tool.tox]
 env_list = ["py314", "py313", "py312"]
