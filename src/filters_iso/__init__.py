@@ -1,4 +1,11 @@
+from typing import TYPE_CHECKING, Any
+
 from filters.base import BaseFilter, Type
+
+if TYPE_CHECKING:
+    from iso3166 import Country as CountryType
+    from language_tags.Tag import Tag
+    from moneyed import Currency as CurrencyType
 
 __all__ = [
     "Country",
@@ -7,7 +14,7 @@ __all__ = [
 ]
 
 
-class Country(BaseFilter):
+class Country(BaseFilter["CountryType"]):
     """
     Interprets an incoming value as an ISO 3166-1 alpha-2 or alpha-3
     country code.
@@ -17,18 +24,20 @@ class Country(BaseFilter):
 
     CODE_INVALID = "not_iso_3166_1"
 
-    templates = {
+    templates: dict[str, str] = {
         CODE_INVALID: "This is not a valid ISO 3166-1 country code.",
     }
 
-    def _apply(self, value):
+    def _apply(self, value: Any) -> "CountryType":
         # Lazy-load dependencies to reduce memory usage when this
         # filter is not used in a project.
         # noinspection PyProtectedMember
         from iso3166 import (
+            Country as CountryType,
+        )
+        from iso3166 import (
             countries_by_alpha2,
             countries_by_alpha3,
-            Country as CountryType,
         )
 
         value = self._filter(value, Type((str, CountryType)))
@@ -50,7 +59,7 @@ class Country(BaseFilter):
             return self._invalid_value(value, self.CODE_INVALID, exc_info=True)
 
 
-class Currency(BaseFilter):
+class Currency(BaseFilter["CurrencyType"]):
     """
     Interprets an incoming value as an ISO 4217 currency code.
 
@@ -59,15 +68,17 @@ class Currency(BaseFilter):
 
     CODE_INVALID = "not_iso_4217"
 
-    templates = {
+    templates: dict[str, str] = {
         CODE_INVALID: "This is not a valid ISO 4217 currency code.",
     }
 
-    def _apply(self, value):
+    def _apply(self, value: Any) -> "CurrencyType":
         # Lazy-load dependencies to reduce memory usage when this
         # filter is not used in a project.
         from moneyed import (
             Currency as CurrencyType,
+        )
+        from moneyed import (
             CurrencyDoesNotExist,
             get_currency,
         )
@@ -96,7 +107,7 @@ class Currency(BaseFilter):
             return self._invalid_value(value, self.CODE_INVALID, exc_info=True)
 
 
-class Locale(BaseFilter):
+class Locale(BaseFilter["Tag"]):
     """
     Ensures that incoming values are well-formed IETF language tags.
 
@@ -105,11 +116,11 @@ class Locale(BaseFilter):
 
     CODE_INVALID = "not_ietf_language_tag"
 
-    templates = {
+    templates: dict[str, str] = {
         CODE_INVALID: "This value is not a well-formed IETF language tag.",
     }
 
-    def _apply(self, value):
+    def _apply(self, value: Any) -> "Tag":
         # Lazy-load dependencies to reduce memory usage when this
         # filter is not used in a project.
         from language_tags import tags

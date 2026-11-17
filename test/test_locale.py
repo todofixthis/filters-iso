@@ -1,10 +1,15 @@
+from collections.abc import Callable
+
 import filters as f
+from filters.handlers import FilterRunner
 from filters.pytest import skip_value_check
 from language_tags import tags
 from language_tags.Tag import Tag
 
+import filters_iso
 
-def test_pass_none(assert_filter_passes):
+
+def test_pass_none(assert_filter_passes: Callable[..., FilterRunner]) -> None:
     """
     ``None`` always passes this filter.
 
@@ -13,7 +18,7 @@ def test_pass_none(assert_filter_passes):
     assert_filter_passes(f.ext.Locale(), None)
 
 
-def test_valid_locale(assert_filter_passes):
+def test_valid_locale(assert_filter_passes: Callable[..., FilterRunner]) -> None:
     """
     Valid locale string is valid.
 
@@ -33,7 +38,9 @@ def test_valid_locale(assert_filter_passes):
     assert str(tag.script) == "Hant"
 
 
-def test_pass_case_insensitive(assert_filter_passes):
+def test_pass_case_insensitive(
+    assert_filter_passes: Callable[..., FilterRunner],
+) -> None:
     """
     The incoming value is basically valid, except it uses the wrong case.
     """
@@ -48,7 +55,7 @@ def test_pass_case_insensitive(assert_filter_passes):
     assert str(tag.script) == "Arab"
 
 
-def test_fail_invalid_value(assert_filter_errors):
+def test_fail_invalid_value(assert_filter_errors: Callable[..., FilterRunner]) -> None:
     """
     The incoming value generates parsing errors.
     """
@@ -56,7 +63,7 @@ def test_fail_invalid_value(assert_filter_errors):
     runner = assert_filter_errors(
         f.ext.Locale(),
         "sl-Cyrl-YU-rozaj-solba-1994-b-1234-a-Foobar-x-b-1234-a-Foobar",
-        [f.ext.Locale.CODE_INVALID],
+        [filters_iso.Locale.CODE_INVALID],
     )
 
     # Parse errors included here for demonstration purposes.
@@ -71,14 +78,14 @@ def test_fail_invalid_value(assert_filter_errors):
     ]
 
 
-def test_fail_wrong_type(assert_filter_errors):
+def test_fail_wrong_type(assert_filter_errors: Callable[..., FilterRunner]) -> None:
     """
     The incoming value is not a string.
     """
     assert_filter_errors(f.ext.Locale(), ["en", "US"], [f.Type.CODE_WRONG_TYPE])
 
 
-def test_pass_tag_object(assert_filter_passes):
+def test_pass_tag_object(assert_filter_passes: Callable[..., FilterRunner]) -> None:
     """
     The incoming value is already a Tag object.
     """
