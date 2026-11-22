@@ -1,36 +1,48 @@
+from typing import TYPE_CHECKING, Any
+
 from filters.base import BaseFilter, Type
 
+if TYPE_CHECKING:
+    from iso3166 import Country as CountryType
+    from language_tags.Tag import Tag
+    from moneyed import Currency as CurrencyType
+
+__version__ = "4.0.0a1"
+
 __all__ = [
-    'Country',
-    'Currency',
-    'Locale',
+    "Country",
+    "Currency",
+    "Locale",
 ]
 
 
-class Country(BaseFilter):
+class Country(BaseFilter["CountryType"]):
     """
     Interprets an incoming value as an ISO 3166-1 alpha-2 or alpha-3
     country code.
 
     The resulting value is a :py:class:`iso3166.Country` object.
     """
-    CODE_INVALID = 'not_iso_3166_1'
 
-    templates = {
-        CODE_INVALID: 'This is not a valid ISO 3166-1 country code.',
+    CODE_INVALID = "not_iso_3166_1"
+
+    templates: dict[str, str] = {
+        CODE_INVALID: "This is not a valid ISO 3166-1 country code.",
     }
 
-    def _apply(self, value):
+    def _apply(self, value: Any) -> "CountryType":
         # Lazy-load dependencies to reduce memory usage when this
         # filter is not used in a project.
         # noinspection PyProtectedMember
         from iso3166 import (
-            countries_by_alpha2,
-            countries_by_alpha3,
             Country as CountryType,
         )
+        from iso3166 import (
+            countries_by_alpha2,
+            countries_by_alpha3,
+        )
 
-        value = self._filter(value, Type((str, CountryType,)))
+        value = self._filter(value, Type((str, CountryType)))
 
         if self._has_errors:
             return None
@@ -49,28 +61,31 @@ class Country(BaseFilter):
             return self._invalid_value(value, self.CODE_INVALID, exc_info=True)
 
 
-class Currency(BaseFilter):
+class Currency(BaseFilter["CurrencyType"]):
     """
     Interprets an incoming value as an ISO 4217 currency code.
 
     The resulting value is a :py:class:`moneyed.Currency` object.
     """
-    CODE_INVALID = 'not_iso_4217'
 
-    templates = {
-        CODE_INVALID: 'This is not a valid ISO 4217 currency code.',
+    CODE_INVALID = "not_iso_4217"
+
+    templates: dict[str, str] = {
+        CODE_INVALID: "This is not a valid ISO 4217 currency code.",
     }
 
-    def _apply(self, value):
+    def _apply(self, value: Any) -> "CurrencyType":
         # Lazy-load dependencies to reduce memory usage when this
         # filter is not used in a project.
         from moneyed import (
             Currency as CurrencyType,
+        )
+        from moneyed import (
             CurrencyDoesNotExist,
             get_currency,
         )
 
-        value = self._filter(value, Type((str, CurrencyType,)))
+        value = self._filter(value, Type((str, CurrencyType)))
 
         if self._has_errors:
             return None
@@ -94,25 +109,26 @@ class Currency(BaseFilter):
             return self._invalid_value(value, self.CODE_INVALID, exc_info=True)
 
 
-class Locale(BaseFilter):
+class Locale(BaseFilter["Tag"]):
     """
     Ensures that incoming values are well-formed IETF language tags.
 
     The resulting value is a :py:class:`language_tags.Tag.Tag` object.
     """
-    CODE_INVALID = 'not_ietf_language_tag'
 
-    templates = {
-        CODE_INVALID: 'This value is not a well-formed IETF language tag.',
+    CODE_INVALID = "not_ietf_language_tag"
+
+    templates: dict[str, str] = {
+        CODE_INVALID: "This value is not a well-formed IETF language tag.",
     }
 
-    def _apply(self, value):
+    def _apply(self, value: Any) -> "Tag":
         # Lazy-load dependencies to reduce memory usage when this
         # filter is not used in a project.
         from language_tags import tags
         from language_tags.Tag import Tag
 
-        value = self._filter(value, Type((str, Tag,)))
+        value = self._filter(value, Type((str, Tag)))
 
         if self._has_errors:
             return None
@@ -126,11 +142,9 @@ class Locale(BaseFilter):
             return self._invalid_value(
                 value=value,
                 reason=self.CODE_INVALID,
-
                 context={
-                    'parse_errors': [
-                        (error.code, error.message)
-                        for error in tag.errors
+                    "parse_errors": [
+                        (error.code, error.message) for error in tag.errors
                     ],
                 },
             )

@@ -1,10 +1,15 @@
+from collections.abc import Callable
+
 import filters as f
+from filters.handlers import FilterRunner
 from filters.pytest import skip_value_check
 from language_tags import tags
 from language_tags.Tag import Tag
 
+import filters_iso
 
-def test_pass_none(assert_filter_passes):
+
+def test_pass_none(assert_filter_passes: Callable[..., FilterRunner]) -> None:
     """
     ``None`` always passes this filter.
 
@@ -13,7 +18,7 @@ def test_pass_none(assert_filter_passes):
     assert_filter_passes(f.ext.Locale(), None)
 
 
-def test_valid_locale(assert_filter_passes):
+def test_valid_locale(assert_filter_passes: Callable[..., FilterRunner]) -> None:
     """
     Valid locale string is valid.
 
@@ -22,45 +27,47 @@ def test_valid_locale(assert_filter_passes):
       - https://pypi.python.org/pypi/language-tags
       - https://github.com/mattcg/language-tags
     """
-    runner = assert_filter_passes(f.ext.Locale(), 'en-cmn-Hant-HK', skip_value_check)
+    runner = assert_filter_passes(f.ext.Locale(), "en-cmn-Hant-HK", skip_value_check)
 
     tag = runner.cleaned_data
     assert isinstance(tag, Tag)
     assert tag.valid
-    assert str(tag) == 'en-cmn-Hant-HK'
-    assert str(tag.language) == 'en'
-    assert str(tag.region) == 'HK'
-    assert str(tag.script) == 'Hant'
+    assert str(tag) == "en-cmn-Hant-HK"
+    assert str(tag.language) == "en"
+    assert str(tag.region) == "HK"
+    assert str(tag.script) == "Hant"
 
 
-def test_pass_case_insensitive(assert_filter_passes):
+def test_pass_case_insensitive(
+    assert_filter_passes: Callable[..., FilterRunner],
+) -> None:
     """
     The incoming value is basically valid, except it uses the wrong case.
     """
-    runner = assert_filter_passes(f.ext.Locale(), 'Az-ArAb-Ir', skip_value_check)
+    runner = assert_filter_passes(f.ext.Locale(), "Az-ArAb-Ir", skip_value_check)
 
     tag = runner.cleaned_data
     assert isinstance(tag, Tag)
     assert tag.valid
-    assert str(tag) == 'az-Arab-IR'
-    assert str(tag.language) == 'az'
-    assert str(tag.region) == 'IR'
-    assert str(tag.script) == 'Arab'
+    assert str(tag) == "az-Arab-IR"
+    assert str(tag.language) == "az"
+    assert str(tag.region) == "IR"
+    assert str(tag.script) == "Arab"
 
 
-def test_fail_invalid_value(assert_filter_errors):
+def test_fail_invalid_value(assert_filter_errors: Callable[..., FilterRunner]) -> None:
     """
     The incoming value generates parsing errors.
     """
     # noinspection SpellCheckingInspection
     runner = assert_filter_errors(
         f.ext.Locale(),
-        'sl-Cyrl-YU-rozaj-solba-1994-b-1234-a-Foobar-x-b-1234-a-Foobar',
-        [f.ext.Locale.CODE_INVALID],
+        "sl-Cyrl-YU-rozaj-solba-1994-b-1234-a-Foobar-x-b-1234-a-Foobar",
+        [filters_iso.Locale.CODE_INVALID],
     )
 
     # Parse errors included here for demonstration purposes.
-    assert runner.filter_messages[''][0].context.get('parse_errors') == [
+    assert runner.filter_messages[""][0].context.get("parse_errors") == [
         # Sorry about the magic values.
         # These are defined in the Tag initialiser, so they're a bit
         # tricky to get at without complicating the test.
@@ -71,15 +78,15 @@ def test_fail_invalid_value(assert_filter_errors):
     ]
 
 
-def test_fail_wrong_type(assert_filter_errors):
+def test_fail_wrong_type(assert_filter_errors: Callable[..., FilterRunner]) -> None:
     """
     The incoming value is not a string.
     """
-    assert_filter_errors(f.ext.Locale(), ['en', 'US'], [f.Type.CODE_WRONG_TYPE])
+    assert_filter_errors(f.ext.Locale(), ["en", "US"], [f.Type.CODE_WRONG_TYPE])
 
 
-def test_pass_tag_object(assert_filter_passes):
+def test_pass_tag_object(assert_filter_passes: Callable[..., FilterRunner]) -> None:
     """
     The incoming value is already a Tag object.
     """
-    assert_filter_passes(f.ext.Locale(), tags.tag('en-cmn-Hant-HK'))
+    assert_filter_passes(f.ext.Locale(), tags.tag("en-cmn-Hant-HK"))
