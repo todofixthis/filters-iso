@@ -42,6 +42,15 @@ the package version separately from ``phx-filters``::
 
    pip install phx-filters-iso
 
+Upgrading
+---------
+.. important::
+
+   Upgrading across a major version? Read the guide for the version you're
+   moving to:
+
+   - `Upgrading to ISO Filters v4 <https://github.com/todofixthis/filters-iso/blob/main/docs/upgrading_to_v4.rst>`_
+
 Maintainers
 -----------
 To set up a local development environment:

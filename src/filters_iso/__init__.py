@@ -7,7 +7,7 @@ if TYPE_CHECKING:
     from language_tags.Tag import Tag
     from moneyed import Currency as CurrencyType
 
-__version__ = "3.2.0"
+__version__ = "4.0.0a1"
 
 __all__ = [
     "Country",
