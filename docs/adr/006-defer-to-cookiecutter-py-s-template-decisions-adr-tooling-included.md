@@ -22,7 +22,7 @@ That has happened. [cookiecutter-py ADR 019][], first released in 1.3.2,
 decides plugin reliance for the template and every generated project, and its
 Consequences name 004 as able to drop its restatement. ADR 009 was superseded
 in 1.3.1 by [cookiecutter-py ADR 018][], which carries its pin decision over
-unchanged. This project records template 1.4.0 in `.copier-answers.yml`, and
+unchanged. This project records template 1.6.0 in `.copier-answers.yml`, and
 its template-owned AGENTS.md and `adrs` job comment already cite 019 and
 018, and `renovate.json` cites 018. 004's summary still restates 003, so it
 duplicates what the template decides, and cites 009, which fires 004's other
@@ -77,7 +77,7 @@ with the restatement it guarded.
   not this ADR's `scope`, lists the files.
 - Diverging from a template decision on purpose needs its own ADR here,
   naming the template ADR it departs from.
-- The links below pin the 1.4.0 tag, the release this project recorded
+- The links below pin the 1.6.0 tag, the release this project recorded
   when this ADR was written, so they lead to the decisions it adopted even
   if the template later moves them.
 - A condition from cookiecutter-py ADR 019's `revisit-when` seen here goes to
@@ -86,6 +86,6 @@ with the restatement it guarded.
 
 [003-rely-on-the-phx-plugin-for-adr-tooling.md]: 003-rely-on-the-phx-plugin-for-adr-tooling.md
 [004-defer-to-cookiecutter-py-s-template-decisions.md]: 004-defer-to-cookiecutter-py-s-template-decisions.md
-[cookiecutter-py ADR 018]: https://github.com/todofixthis/cookiecutter-py/blob/1.4.0/docs/adr/018-require-gate-everywhere-and-the-release-check-on-main.md
-[cookiecutter-py ADR 019]: https://github.com/todofixthis/cookiecutter-py/blob/1.4.0/docs/adr/019-rely-on-the-phx-plugin-for-adr-tooling.md
+[cookiecutter-py ADR 018]: https://github.com/todofixthis/cookiecutter-py/blob/1.6.0/docs/adr/018-require-gate-everywhere-and-the-release-check-on-main.md
+[cookiecutter-py ADR 019]: https://github.com/todofixthis/cookiecutter-py/blob/1.6.0/docs/adr/019-rely-on-the-phx-plugin-for-adr-tooling.md
 [cookiecutter-py's copier template]: https://github.com/todofixthis/cookiecutter-py
