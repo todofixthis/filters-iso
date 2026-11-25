@@ -1,9 +1,10 @@
 ---
-status: Accepted
+status: Superseded
 date: 2026-11-17
 scope: [.agents/rules/template-owned.md, .claude/settings.json, .copier-answers.yml, .github/workflows/build.yml, AGENTS.md, docs/adr/, pyproject.toml, renovate.json]
 summary: This project follows the copier template todofixthis/cookiecutter-py, which writes and owns the files that .agents/rules/template-owned.md lists, and defers to its decisions in them; restating ADR 003, ADR tooling relies on the phx plugin (its hooks in sessions, phx-adr in CI), not a repo-local generator, pre-commit hook or vendored copy, with frontmatter following phx writing-adrs conventions (scope, not tags), and CI pins a phx-claude-siat release's commit SHA with a trailing `# X.Y.Z`, bumped by Renovate as cookiecutter-py ADR 009 decides, not the tip of phx's main; diverging from a template decision on purpose needs an ADR here naming the cookiecutter-py ADR it departs from.
 revisit-when: This project stops taking template updates; a cookiecutter-py ADR decides reliance on the phx plugin; a template release changes AGENTS.md's ADR-tooling instruction, the adrs job or its phx Renovate manager without an ADR; the template supersedes or renumbers one of the ADRs named here; a phx plugin release imposes an ADR convention the maintainer rejects; ADRs here are routinely authored outside Claude Code, so CI is the first check most ADR commits meet; the phx plugin drops its ADR tooling; phx's `main` stops carrying only releases.
+superseded-by: 6
 ---
 
 # 004: Defer to cookiecutter-py's Template Decisions
