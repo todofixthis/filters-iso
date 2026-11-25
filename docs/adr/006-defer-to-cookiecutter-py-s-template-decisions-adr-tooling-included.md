@@ -3,7 +3,7 @@ status: Accepted
 date: 2026-11-25
 scope: [.agents/rules/template-owned.md, .claude/settings.json, .copier-answers.yml, .github/workflows/build.yml, AGENTS.md, docs/adr/, pyproject.toml, renovate.json]
 summary: "This project follows the copier template todofixthis/cookiecutter-py, which writes and owns the files that .agents/rules/template-owned.md lists, and defers to its decisions in them, ADR tooling included: reliance on the phx plugin (its hooks in sessions, phx-adr in CI and AGENTS.md, never a repo-local generator, pre-commit hook or vendored copy, with frontmatter following the skill's conventions) as cookiecutter-py ADR 019 decides, and the release-pinned phx-adr commit bumped by Renovate, not the tip of phx's main, as cookiecutter-py ADR 018 decides; diverging from a template decision on purpose needs an ADR here naming the cookiecutter-py ADR it departs from."
-revisit-when: This project stops taking template updates; the template supersedes or renumbers one of the ADRs named here; a condition in cookiecutter-py ADR 018's or 019's revisit-when arises in this project.
+revisit-when: This project stops taking template updates; the template supersedes or renumbers one of the ADRs named here; a condition in cookiecutter-py ADR 019's revisit-when arises in this project.
 ---
 
 # 006: Defer to cookiecutter-py's Template Decisions, ADR Tooling Included
@@ -60,9 +60,11 @@ superseded 009.
 003's and 004's ADR-tooling revisit conditions (a phx release imposing a
 rejected convention, ADRs routinely authored outside Claude Code, the plugin
 dropping its ADR tooling, phx's `main` taking commits that aren't releases)
-are watched by 019 and 018 in their own revisit conditions, so this ADR
-drops them, keeping one pointer to them: some, such as ADRs authored outside
-Claude Code, are seen only from inside a project, whose index never shows the
+are watched by 019 and 018 in their own revisit conditions, so this ADR drops
+them, keeping one pointer to 019's (018's plugin condition falls under 019's
+"drops its ADR tooling", and phx's `main` taking non-release commits shows in
+phx-claude-siat, not in a project): some, such as ADRs authored outside Claude
+Code, are seen only from inside a project, whose index never shows the
 template's. It keeps the conditions that are this project's own: whether it
 takes template updates at all, and whether a cited template ADR moves. 004's
 watch for a template change to its ADR tooling arriving without an ADR goes
@@ -78,6 +80,9 @@ with the restatement it guarded.
 - The links below pin the 1.4.0 tag, the release this project recorded
   when this ADR was written, so they lead to the decisions it adopted even
   if the template later moves them.
+- A condition from cookiecutter-py ADR 019's `revisit-when` seen here goes to
+  cookiecutter-py as a `docs/backlog/` item (its ADR 011), unless the reason is
+  specific to this project, which needs its own ADR here naming ADR 019.
 
 [003-rely-on-the-phx-plugin-for-adr-tooling.md]: 003-rely-on-the-phx-plugin-for-adr-tooling.md
 [004-defer-to-cookiecutter-py-s-template-decisions.md]: 004-defer-to-cookiecutter-py-s-template-decisions.md
